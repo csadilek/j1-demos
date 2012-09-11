@@ -79,6 +79,7 @@ public class CustomerTable extends Composite {
     vPanel.add(customersTable);
     vPanel.add(new HTML("<hr>"));
     vPanel.add(newCustomerTable);
+    vPanel.addStyleName("whole-customer-table");
     initWidget(vPanel);
   }
 

@@ -544,7 +544,7 @@
         <configuration>
           <logLevel>INFO</logLevel>
           <runTarget>App.html</runTarget>
-          <extraJvmArgs>-Xmx512m</extraJvmArgs>
+          <extraJvmArgs>-Xmx512m -XX:MaxPermSize=512M</extraJvmArgs>
           <hostedWebapp>src/main/webapp/</hostedWebapp>
         </configuration>
         <executions>
