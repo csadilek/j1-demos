@@ -13,7 +13,8 @@ public class Customer implements Comparable<Customer> {
   private String postalCode;
   private Date lastChanged;
 
-  public Customer() {}
+  public Customer() {
+  }
 
   public Customer(String firstName, String lastName, String postalCode) {
     this.firstName = firstName;
@@ -69,8 +70,9 @@ public class Customer implements Comparable<Customer> {
 
   @Override
   public String toString() {
-    return "Customer [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", postalCode=" + postalCode
-        + ", lastChanged=" + lastChanged + "]";
+    return "Customer [id=" + id + ", firstName=" + firstName + ", lastName="
+            + lastName + ", postalCode=" + postalCode + ", lastChanged="
+            + lastChanged + "]";
   }
 
   @Override

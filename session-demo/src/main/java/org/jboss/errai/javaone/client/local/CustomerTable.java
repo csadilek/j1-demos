@@ -54,7 +54,8 @@ public class CustomerTable extends Composite {
     final Button create = new Button("Create", new ClickHandler() {
       @Override
       public void onClick(ClickEvent clickEvent) {
-        Customer customer = new Customer(custFirstName.getText(), custLastName.getText(), custPostalCode.getText());
+        Customer customer = new Customer(custFirstName.getText(),
+                custLastName.getText(), custPostalCode.getText());
         newCustomerCallback.onNewCustomer(customer);
         custFirstName.setText("");
         custLastName.setText("");
@@ -92,7 +93,7 @@ public class CustomerTable extends Composite {
   public void addCustomer(final Customer customer) {
     if (rows.containsKey(customer.getId()))
       return;
-    
+
     int row = customersTable.getRowCount();
     final TextBox firstName = new TextBox();
     firstName.setText(customer.getFirstName());
@@ -107,7 +108,11 @@ public class CustomerTable extends Composite {
     customersTable.setWidget(row, 1, firstName);
     customersTable.setWidget(row, 2, lastName);
     customersTable.setWidget(row, 3, postalCode);
-    customersTable.setText(row, 4, DateTimeFormat.getFormat("yyyy-MM-dd HH:mm:ss").format(customer.getLastChanged()));
+    customersTable.setText(
+            row,
+            4,
+            DateTimeFormat.getFormat("yyyy-MM-dd HH:mm:ss").format(
+                    customer.getLastChanged()));
     rows.put(customer.getId(), row);
   }
 

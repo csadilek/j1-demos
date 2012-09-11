@@ -9,26 +9,24 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Event;
-import javax.inject.Inject;
 
 import org.jboss.errai.javaone.client.shared.Customer;
 import org.jboss.errai.javaone.client.shared.CustomerService;
-import org.jboss.errai.javaone.client.shared.New;
 
 @ApplicationScoped
 public class CustomerServiceImpl implements CustomerService {
 
-  @Inject @New
-  private Event<Customer> newCustomerEvent;
-  
   private static AtomicLong id = new AtomicLong();
   private static Map<Long, Customer> customers = new ConcurrentHashMap<Long, Customer>() {
     {
-      put(id.incrementAndGet(), new Customer(id.get(), "Mike", "Brock", "A1B2C3"));
-      put(id.incrementAndGet(), new Customer(id.get(), "Christian", "Sadilek", "A1B2C3"));
-      put(id.incrementAndGet(), new Customer(id.get(), "Jonathan", "Fuerth", "A1B2C3"));
-      put(id.incrementAndGet(), new Customer(id.get(), "Lincoln", "Baxter", "12345"));
+      put(id.incrementAndGet(), new Customer(id.get(), "Mike", "Brock",
+              "A1B2C3"));
+      put(id.incrementAndGet(), new Customer(id.get(), "Christian", "Sadilek",
+              "A1B2C3"));
+      put(id.incrementAndGet(), new Customer(id.get(), "Jonathan", "Fuerth",
+              "A1B2C3"));
+      put(id.incrementAndGet(), new Customer(id.get(), "Lincoln", "Baxter",
+              "12345"));
     }
   };
 
@@ -36,7 +34,6 @@ public class CustomerServiceImpl implements CustomerService {
   public long createCustomer(Customer customer) {
     customer.setId(id.incrementAndGet());
     customers.put(customer.getId(), customer);
-    newCustomerEvent.fire(customer);
     return customer.getId();
   }
 
@@ -59,7 +56,8 @@ public class CustomerServiceImpl implements CustomerService {
 
   @Override
   public List<Customer> listAllCustomers() {
-    List<Customer> customers = new ArrayList<Customer>(CustomerServiceImpl.customers.values());
+    List<Customer> customers = new ArrayList<Customer>(
+            CustomerServiceImpl.customers.values());
     Collections.sort(customers);
     return customers;
   }
