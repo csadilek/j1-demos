@@ -41,7 +41,9 @@ import com.google.gwt.user.client.ui.RootPanel;
 @EntryPoint
 public class ClientMain {
 
-  @Inject OrientationDetector orientationDetector;
+  @Inject 
+  private OrientationDetector orientationDetector;
+  
   private WelcomeDialog welcomeDialog;
   private final Map<String, PerspectiveAnimator> animators = new HashMap<String, PerspectiveAnimator>();
 

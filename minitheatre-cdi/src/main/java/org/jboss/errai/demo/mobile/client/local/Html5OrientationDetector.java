@@ -11,6 +11,10 @@ import com.google.gwt.core.client.JavaScriptObject;
  */
 public class Html5OrientationDetector extends OrientationDetector {
 
+  public static native boolean isSupported() /*-{
+    return $wnd.DeviceOrientationEvent !== undefined;
+  }-*/;
+  
   /**
    * The listener function that's currently registered to receive orientation
    * events. If null, we are not firing orientation events.
