@@ -2,7 +2,7 @@ package org.jboss.errai.demo.mobile.client.local;
 
 import javax.enterprise.event.Event;
 
-import org.jboss.errai.demo.mobile.client.shared.OrientationEvent;
+import org.jboss.errai.demo.mobile.client.shared.Orientation;
 
 public abstract class OrientationDetector {
 
@@ -20,7 +20,7 @@ public abstract class OrientationDetector {
    */
   private long lastEventFireTime;
 
-  protected Event<OrientationEvent> orientationEventSource;
+  protected Event<Orientation> orientationEventSource;
 
   /**
    * Should be set by the main application when the username is set or updated.
@@ -40,7 +40,7 @@ public abstract class OrientationDetector {
   public abstract void startFiringOrientationEvents();
 
   /**
-   * Fires an {@link OrientationEvent} with the given parameters. This method is
+   * Fires an {@link Orientation} with the given parameters. This method is
    * meant to be called by the browser-specific logic that detects the device
    * orientation.
    */
@@ -50,14 +50,14 @@ public abstract class OrientationDetector {
       return;
     }
     lastEventFireTime = now;
-    orientationEventSource.fire(new OrientationEvent(clientId, x, y, z));
+    orientationEventSource.fire(new Orientation(clientId, x, y, z));
   }
 
   /**
    * The provider class that creates the detector calls this method to give us a
    * means of firing the event.
    */
-  void setOrientationEventSource(Event<OrientationEvent> orientationEventSource) {
+  void setOrientationEventSource(Event<Orientation> orientationEventSource) {
     this.orientationEventSource = orientationEventSource;
   }
 

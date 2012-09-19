@@ -4,7 +4,7 @@ import org.jboss.errai.common.client.api.annotations.Portable;
 import org.jboss.errai.marshalling.client.api.annotations.MapsTo;
 
 @Portable
-public class OrientationEvent {
+public class Orientation {
 
   private final String clientId;
   private final double x;
@@ -12,7 +12,7 @@ public class OrientationEvent {
   private final double z;
   private transient final long timestamp = System.currentTimeMillis();
 
-  public OrientationEvent(
+  public Orientation(
       @MapsTo("clientId") String clientId,
       @MapsTo("x") double x,
       @MapsTo("y") double y,
@@ -21,6 +21,13 @@ public class OrientationEvent {
     this.x = x;
     this.y = y;
     this.z = z;
+  }
+  
+  public Orientation(Orientation orientation) {
+    this.clientId = orientation.clientId;
+    this.x = orientation.x;
+    this.y = orientation.y;
+    this.z = orientation.z;
   }
 
   public String getClientId() {

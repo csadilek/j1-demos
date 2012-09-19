@@ -22,9 +22,7 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 
-import org.jboss.errai.demo.mobile.client.shared.AllClientOrientations;
-import org.jboss.errai.demo.mobile.client.shared.Disconnected;
-import org.jboss.errai.demo.mobile.client.shared.OrientationEvent;
+import org.jboss.errai.demo.mobile.client.shared.Orientation;
 import org.jboss.errai.ioc.client.api.EntryPoint;
 
 import com.google.gwt.animation.client.AnimationScheduler;
@@ -88,7 +86,8 @@ public class ClientMain {
     });
   }
 
-  public void visualizeOrientationEvent(OrientationEvent e) {
+  public void visualizeOrientationEvent(@Observes Orientation e) {
+    GWT.log("Received: " + e);
     Element rotateMe = Document.get().getElementById("rotateMe-" + e.getClientId());
     if (rotateMe == null) {
       // must be a new client! We will clone the template for this new client.
@@ -106,19 +105,5 @@ public class ClientMain {
     }
 
     animator.updateTargets(e);
-  }
-
-  public void onAllClientOrientationsUpdate(@Observes AllClientOrientations aco) {
-    for (OrientationEvent e : aco.getClientOrientations()) {
-      visualizeOrientationEvent(e);
-    }
-  }
-
-  public void onClientDisconnect(@Observes @Disconnected OrientationEvent e) {
-    Element rotateMe = Document.get().getElementById("rotateMe-" + e.getClientId());
-    if (rotateMe != null) {
-      rotateMe.getParentElement().removeChild(rotateMe);
-    }
-    animators.remove(e.getClientId());
   }
 }
