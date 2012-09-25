@@ -19,14 +19,10 @@ public class CustomerServiceImpl implements CustomerService {
   private static AtomicLong id = new AtomicLong();
   private static Map<Long, Customer> customers = new ConcurrentHashMap<Long, Customer>() {
     {
-      put(id.incrementAndGet(), new Customer(id.get(), "Mike", "Brock",
-              "A1B2C3"));
-      put(id.incrementAndGet(), new Customer(id.get(), "Christian", "Sadilek",
-              "A1B2C3"));
-      put(id.incrementAndGet(), new Customer(id.get(), "Jonathan", "Fuerth",
-              "A1B2C3"));
-      put(id.incrementAndGet(), new Customer(id.get(), "Lincoln", "Baxter",
-              "12345"));
+      put(id.incrementAndGet(), new Customer(id.get(), "Mike", "Brock", "A1B2C3"));
+      put(id.incrementAndGet(), new Customer(id.get(), "Christian", "Sadilek", "A1B2C3"));
+      put(id.incrementAndGet(), new Customer(id.get(), "Jonathan", "Fuerth", "A1B2C3"));
+      put(id.incrementAndGet(), new Customer(id.get(), "Lincoln", "Baxter", "12345"));
     }
   };
 
@@ -56,8 +52,7 @@ public class CustomerServiceImpl implements CustomerService {
 
   @Override
   public List<Customer> listAllCustomers() {
-    List<Customer> customers = new ArrayList<Customer>(
-            CustomerServiceImpl.customers.values());
+    List<Customer> customers = new ArrayList<Customer>(CustomerServiceImpl.customers.values());
     Collections.sort(customers);
     return customers;
   }

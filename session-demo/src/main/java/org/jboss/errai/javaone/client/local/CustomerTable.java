@@ -108,11 +108,7 @@ public class CustomerTable extends Composite {
     customersTable.setWidget(row, 1, firstName);
     customersTable.setWidget(row, 2, lastName);
     customersTable.setWidget(row, 3, postalCode);
-    customersTable.setText(
-            row,
-            4,
-            DateTimeFormat.getFormat("yyyy-MM-dd HH:mm:ss").format(
-                    customer.getLastChanged()));
+    customersTable.setText(row, 4, DateTimeFormat.getFormat("yyyy-MM-dd HH:mm:ss").format(customer.getLastChanged()));
     rows.put(customer.getId(), row);
   }
 
