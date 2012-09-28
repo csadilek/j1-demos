@@ -1,22 +1,16 @@
 package org.jboss.errai.demo.jpa.client.local;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
 
-import org.jboss.errai.bus.client.api.RemoteCallback;
 import org.jboss.errai.demo.jpa.client.shared.Album;
-import org.jboss.errai.demo.jpa.client.shared.AlbumService;
-import org.jboss.errai.demo.jpa.client.shared.Artist;
-import org.jboss.errai.ioc.client.api.Caller;
 import org.jboss.errai.ioc.client.api.EntryPoint;
-import org.jboss.errai.jpa.client.local.ErraiEntityManager;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -24,12 +18,8 @@ import com.google.gwt.user.client.ui.RootPanel;
 @EntryPoint
 public class Main {
 
-  @Inject
-  private EntityManager em;
-
-  @Inject
-  private Caller<AlbumService> albumService;
-
+  private List<Album> albums = new ArrayList<Album>();
+  
   private AlbumTable albumsWidget = new AlbumTable();
   private Button resetEverythingButton = new Button("Clear local storage");
   private Button newAlbumButton = new Button("New Album...");
@@ -41,8 +31,7 @@ public class Main {
     albumsWidget.setDeleteHandler(new RowOperationHandler<Album>() {
       @Override
       public void handle(Album a) {
-        em.remove(a);
-        em.flush();
+        albums.remove(a);
         refreshUI();
       }
     });
@@ -50,12 +39,11 @@ public class Main {
     albumsWidget.setEditHandler(new RowOperationHandler<Album>() {
       @Override
       public void handle(Album a) {
-        AlbumForm af = new AlbumForm(a, em);
+        AlbumForm af = new AlbumForm(a, null);
         final PopupPanel pp = new PopupPanel(true, true);
         af.setSaveHandler(new RowOperationHandler<Album>() {
           @Override
           public void handle(Album album) {
-            em.flush();
             refreshUI();
             pp.hide();
           }
@@ -70,7 +58,7 @@ public class Main {
     resetEverythingButton.addClickHandler(new ClickHandler() {
       @Override
       public void onClick(ClickEvent event) {
-        ((ErraiEntityManager) em).removeAll();
+        albums.clear();
         refreshUI();
       }
     });
@@ -78,33 +66,19 @@ public class Main {
     loadDataFromServerButton.addClickHandler(new ClickHandler() {
       @Override
       public void onClick(ClickEvent event) {
-        albumService.call(new RemoteCallback<List<Album>>() {
-          @Override
-          public void callback(List<Album> albums) {
-            for (Album album : albums) {
-              TypedQuery<Album> q = em.createNamedQuery("albumByName", Album.class);
-              q.setParameter("name", album.getName());
-              if (q.getResultList().isEmpty()) {
-                em.persist(album);
-              }
-            }
-            em.flush();
-            refreshUI();
-          }
-        }).listAlbums();
+        Window.alert("Nothing happens.");
       }
     });
 
     newAlbumButton.addClickHandler(new ClickHandler() {
       @Override
       public void onClick(ClickEvent event) {
-        AlbumForm af = new AlbumForm(new Album(), em);
+        AlbumForm af = new AlbumForm(new Album(), null);
         final PopupPanel pp = new PopupPanel(true, true);
         af.setSaveHandler(new RowOperationHandler<Album>() {
           @Override
           public void handle(Album album) {
-            em.persist(album);
-            em.flush();
+            albums.add(album);
             refreshUI();
             pp.hide();
           }
@@ -125,9 +99,8 @@ public class Main {
   }
 
   private void refreshUI() {
-    TypedQuery<Album> albums = em.createNamedQuery("allAlbums", Album.class);
     albumsWidget.removeAllRows();
-    albumsWidget.addAll(albums.getResultList());
+    albumsWidget.addAll(albums);
   }
 
 }

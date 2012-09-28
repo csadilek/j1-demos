@@ -44,10 +44,12 @@ public class AlbumForm extends Composite {
     this.album = album;
     this.em = em;
 
-    for (Artist a : em.createNamedQuery("allArtistsByName", Artist.class).getResultList()) {
-      artist.addItem(a.getName(), String.valueOf(a.getId()));
+    if (em != null) {
+      for (Artist a : em.createNamedQuery("allArtistsByName", Artist.class).getResultList()) {
+        artist.addItem(a.getName(), String.valueOf(a.getId()));
+      }
     }
-
+    
     for (Format f : Format.values()) {
       format.addItem(f.name());
     }
@@ -90,8 +92,15 @@ public class AlbumForm extends Composite {
 
   protected void updateAlbumFromUI() {
     album.setName(name.getText());
-    long artistId = Long.parseLong(artist.getValue(artist.getSelectedIndex()));
-    album.setArtist(em.find(Artist.class, artistId));
+    
+    int selectedArtist = artist.getSelectedIndex();
+    if (selectedArtist >= 0) {
+      long artistId = Long.parseLong(artist.getValue(selectedArtist));
+      if (em != null) {
+        album.setArtist(em.find(Artist.class, artistId));
+      }
+    }
+    
     album.setFormat(Format.valueOf(format.getValue(format.getSelectedIndex())));
     album.setReleaseDate(releaseDate.getValue());
   }
