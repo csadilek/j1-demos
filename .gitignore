@@ -24,3 +24,5 @@ class_list.txt
 *.jpage
 session-demo/src/main/webapp/App
 session-demo/src/main/webapp/WEB-INF/lib
+minitheatre-cdi/src/main/webapp/ErraiCdiMobileDemo
+minitheatre-cdi/src/main/webapp/WEB-INF/lib

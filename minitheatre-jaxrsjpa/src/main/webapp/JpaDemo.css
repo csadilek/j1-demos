@@ -1,0 +1,58 @@
+
+body {
+  background-color: #000000 !important;
+  color: #FF6600;
+  font-family: Georgia, Palatino, serif !important;
+}
+
+.albumTable {
+    border-collapse: collapse;
+    color: #FF6600;
+    margin-bottom: 20px;
+    background: rgba(0, 0, 0, 0.5);
+
+}
+
+.albumTable td {
+    padding-top: 6px;
+    padding-bottom: 3px;
+    border-bottom: 1px solid #ddd;
+}
+
+.albumTable .albumName {
+    width: 25em;
+}
+
+.albumTable .artistName {
+    width: 25em;
+}
+
+.albumTable .format {
+    width: 6em;
+}
+
+.albumTable .releaseDate {
+    width: 6em;
+}
+
+.albumTable .deleteButton {
+    width: 4em;
+}
+
+.albumTable .deleteButton {
+    width: 4em;
+}
+
+.background-image {
+    position: fixed;
+    bottom: 25px;
+    right: 50px;
+    height: 150px;
+    z-index: -10;
+}
+
+div.gwt-PopupPanel {
+    background: rgb(55, 55, 55);
+    color: #FF6600;
+}
+
