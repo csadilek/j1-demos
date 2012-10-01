@@ -21,7 +21,7 @@ public class Html5MotionDetector extends OrientationDetector {
   private JavaScriptObject listener;
 
   private void fire(double x, double y, double z) {
-    fireOrientationEvent(y * 90.0 + 90.0, x * 90.0, z * 90.0);
+    fireOrientationEvent(y * 10.0 + 90, x * 10.0, z);
   }
 
   private native void startEvents() /*-{
