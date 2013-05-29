@@ -11,7 +11,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
-@Path("customer")
+@Path("customers")
 public interface CustomerService {
   
   @POST
@@ -35,7 +35,6 @@ public interface CustomerService {
   public Customer retrieveCustomerById(@PathParam("id") long id);
   
   @GET
-  @Path("/list")
   @Produces("application/json")
   public List<Customer> listAllCustomers();
 }

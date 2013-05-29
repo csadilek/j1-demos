@@ -3,7 +3,6 @@ package org.jboss.errai.judcon.client.local;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 
 import org.jboss.errai.bus.client.api.RemoteCallback;
@@ -12,7 +11,6 @@ import org.jboss.errai.ioc.client.api.EntryPoint;
 import org.jboss.errai.judcon.client.local.CustomerTable.NewCustomerCallback;
 import org.jboss.errai.judcon.client.shared.Customer;
 import org.jboss.errai.judcon.client.shared.CustomerService;
-import org.jboss.errai.judcon.client.shared.New;
 
 import com.google.gwt.user.client.ui.RootPanel;
 
@@ -52,9 +50,5 @@ public class App {
       }
     };
     customerService.call(listCallback).listAllCustomers();
-  }
-  
-  public void onNewCustomerFromServer(@Observes @New Customer customer) {
-    customerTable.addCustomer(customer);
-  }
+  } 
 }

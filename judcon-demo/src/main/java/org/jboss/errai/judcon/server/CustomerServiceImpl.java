@@ -19,9 +19,6 @@ import org.jboss.errai.judcon.client.shared.New;
 @ApplicationScoped
 public class CustomerServiceImpl implements CustomerService {
 
-  @Inject @New
-  private Event<Customer> newCustomerEvent;
-  
   private static AtomicLong id = new AtomicLong();
   private static Map<Long, Customer> customers = new ConcurrentHashMap<Long, Customer>() {
     {
@@ -36,7 +33,6 @@ public class CustomerServiceImpl implements CustomerService {
   public long createCustomer(Customer customer) {
     customer.setId(id.incrementAndGet());
     customers.put(customer.getId(), customer);
-    newCustomerEvent.fire(customer);
     return customer.getId();
   }
 

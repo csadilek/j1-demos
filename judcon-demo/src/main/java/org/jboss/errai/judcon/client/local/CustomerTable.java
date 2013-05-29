@@ -36,7 +36,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 @Dependent
 public class CustomerTable extends Composite {
-
+ 
   public static interface NewCustomerCallback {
     void onNewCustomer(Customer customer);
   }
