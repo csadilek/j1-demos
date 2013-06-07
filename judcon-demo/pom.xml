@@ -32,7 +32,7 @@
   </organization>
 
   <properties>
-    <errai.version>2.3.1.Final</errai.version>
+    <errai.version>2.3.0.Final</errai.version>
     <gwt.version>2.4.0</gwt.version>
     <gwt.maven.version>2.4.0</gwt.maven.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
